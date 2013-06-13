@@ -29,7 +29,7 @@ CTxMemPool mempool;
 unsigned int nTransactionsUpdated = 0;
 
 map<uint256, CBlockIndex*> mapBlockIndex;
-uint256 hashGenesisBlock("0x12a765e31ffd4059bada1e25190f6e98c99d9714d334efa41a195a7e7e04bfe2");
+uint256 hashGenesisBlock("0xfc5eb69537b131a2731ff73b23d04c014685067f6e81ac42d0853c3561ebe1de");
 static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // Primecoin: starting difficulty is 1 / 2^12
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
@@ -836,7 +836,7 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
     return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan = 0.5 * 24 * 60 * 60; // Primecoin: 0.5 days
+static const int64 nTargetTimespan = 0.0001 * 24 * 60 * 60; // Primecoin: Difficulty changes a lot to try and limit effectiveness of mine and dashers
 static const int64 nTargetSpacing = 1 * 60; // Primecoin: 1 minutes
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
@@ -2010,14 +2010,14 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1371107837;
+        block.nTime    = 1371118491;
         block.nBits    = 0x1e0ffff0;
-        block.nNonce   = 385757107;
+        block.nNonce   = 387032904;
 
         if (fTestNet)
         {
-            block.nTime    = 1371107837;
-            block.nNonce   = 385757107;
+            block.nTime    = 1371118491;
+            block.nNonce   = 387032904;
         }
 
         //// debug print
@@ -2027,7 +2027,7 @@ bool LoadBlockIndex(bool fAllowNew)
         assert(block.hashMerkleRoot == uint256("0x4726e371e1e9912c6cfb85ddcb993e6806557ea308d4d2dc8edce2b1a98cb4d1"));
 
         // If genesis block hash does not match, then generate new genesis hash.
-        if (true && block.GetHash() != hashGenesisBlock)
+        if (false && block.GetHash() != hashGenesisBlock)
         {
             printf("Searching for genesis block...\n");
             // This will figure out a valid hash and Nonce if you're
